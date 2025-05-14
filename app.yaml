@@ -1,0 +1,10 @@
+runtime: python39
+entrypoint: gunicorn -b :$PORT app:app
+
+env_variables:
+  SECRET_KEY: secret123
+  GCS_BUCKET: project3_422
+  DB_USER: test
+  DB_PASSWORD: ""     # leave as empty string for now
+  DB_NAME: project3
+  DB_CONNECTION_NAME: poetic-producer-454820-h6:us-central1:project3
