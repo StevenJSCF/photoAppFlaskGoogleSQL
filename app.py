@@ -18,7 +18,7 @@ GCS_BUCKET = os.getenv("GCS_BUCKET")
 storage_client = storage.Client()
 
 from google.oauth2 import service_account
-credentials = service_account.Credentials.from_service_account_file("key.json")
+credentials = service_account.Credentials.from_service_account_file("photo-gallery-clean-3bd0e506dd02.json")
 storage_client = storage.Client(credentials=credentials)
 
 # Google Cloud SQL (MySQL) Configuration
