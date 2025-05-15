@@ -7,7 +7,7 @@ from google.cloud import storage
 import mysql.connector
 
 # Load environment variables from .env file
-#load_dotenv()
+load_dotenv()
 
 # Flask App Initialization
 app = Flask(__name__)
@@ -16,6 +16,10 @@ app.secret_key = os.getenv("SECRET_KEY")
 # Google Cloud Storage Configuration
 GCS_BUCKET = os.getenv("GCS_BUCKET")
 storage_client = storage.Client()
+
+from google.oauth2 import service_account
+credentials = service_account.Credentials.from_service_account_file("key.json")
+storage_client = storage.Client(credentials=credentials)
 
 # Google Cloud SQL (MySQL) Configuration
 db_config = {
@@ -35,7 +39,12 @@ db_config = {
 
 
 def get_db_connection():
-    return mysql.connector.connect(**db_config)
+    return mysql.connector.connect(
+        user=os.environ.get('DB_USER'),
+        password=os.environ.get('DB_PASSWORD'),
+        host=os.environ.get('DB_HOST'),
+        database=os.environ.get('DB_NAME')
+    )
 
 # Home Page
 @app.route('/')
